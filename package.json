@@ -1,0 +1,30 @@
+{
+  "name": "cookieclicker",
+  "version": "1.0.0",
+  "description": "cookieclicker",
+  "main": "index.js",
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "webpack",
+    "dev-server": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piotpap663/cookieclick.git"
+  },
+  "author": "Piotr Papiernik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/piotpap663/cookieclick/issues"
+  },
+  "homepage": "https://github.com/piotpap663/cookieclick#readme",
+  "dependencies": {
+    "webpack-dev-server": "^2.9.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^3.10.0"
+  }
+}
