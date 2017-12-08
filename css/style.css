@@ -12,5 +12,13 @@
 #left-separator, #right-seperator {
   background-color: black;
   width:1%;
-  height:100vh;
+  height:100%;
+}
+#big-cookie-container {
+  width: 100%;
+  padding: 10%;
+}
+#big-cookie {
+  width:100%;
+  height:100%;
 }
