@@ -5,6 +5,7 @@ export default class Production {
     this.perSecond = 1;
     this.owned = 0;
     this.isAvailable = false;
+    this.baseCost = 0;
     this.cost = 0;
     this.sell = 0;
     this.name = "";
@@ -28,10 +29,10 @@ export default class Production {
       this.DOMelem.style.opacity = 0.6;
       this.isAvailable = false;
     }
-
   }
   addOne() {
     this.owned++;
-    this.cost = Math.floor(this.cost + (this.cost * 0.25));
+    this.cost = Math.ceil(this.baseCost * Math.pow(1.15, this.owned));
+    //this.perSecond = this.perSecond * this.owned;
   }
 };

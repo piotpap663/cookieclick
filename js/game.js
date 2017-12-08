@@ -54,7 +54,7 @@ cursor.DOMelem.addEventListener("click", () => {
   if (game.decrementCookies(cursor.cost)) {
     cursor.addOne();
     cursor.render(game.getAmountOfCookies());
-    addInterval(cursor, cursor.perSecond);
+    addInterval(cursor, cursor.perSecond,10000);
   }
 });
 // Handle production-grandma click
@@ -63,14 +63,13 @@ grandma.DOMelem.addEventListener("click", () => {
     grandma.addOne();
     grandma.render(game.getAmountOfCookies());
     addInterval(grandma, grandma.perSecond);
-
   }
 });
 
 // addInterval dynamically function 
-const addInterval = (productionName, howManyCookiesAdd) => {
+const addInterval = (productionName, howManyCookiesAdd, time=1000) => {
   productionName.intervals.push(setInterval(() => {
     productionName.howManyProduced += productionName.perSecond;
     game.incrementCookies(howManyCookiesAdd);
-  }, 1000));
+  }, time));
 };

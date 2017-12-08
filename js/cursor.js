@@ -4,7 +4,8 @@ export default class Cursor extends Production {
   constructor() {
     super();
     this.name = "Cursor";
-    this.cost = 5; // 15
+    this.baseCost = 15; // 15
+    this.cost = 15;
     this.DOMelem = document.getElementById('production-cursor');
   }
 };

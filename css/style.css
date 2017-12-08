@@ -34,6 +34,6 @@
 }
 .production > span {
   display: inline;
-  cursor: default;
+  cursor: pointer;
   padding: 10px;
 }
