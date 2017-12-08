@@ -4,82 +4,73 @@ import Cursor from './cursor';
 import Grandma from './grandma';
 
 class Game {
-  constructor(){
+  constructor() {
     this.amount = 0;
-    this.renderProductionsTime = 100; //in ms
+    this.renderProductionsTime = 500; //in ms
+    this.renderBigCookieTime = 100; //in ms
   }
   getAmountOfCookies() {
     return this.amount;
   }
-  incrementCookies(incrAmount=1) {
+  incrementCookies(incrAmount = 1) {
     this.amount += incrAmount;
-  }    
-  decrementCookies(decrAmount=1) {
-    if(this.amount >= decrAmount){
+  }
+  decrementCookies(decrAmount = 1) {
+    if (this.amount >= decrAmount) {
       this.amount -= decrAmount;
       return true;
     } else {
       console.log("Nie stac cie");
       return false;
     }
-  }    
+  }
 };
 
 const renderListOfProductions = () => {
   cursor.render(game.getAmountOfCookies());
   grandma.render(game.getAmountOfCookies());
-  bigCookie.render(game.getAmountOfCookies());
 };
 // Initialize 
 let game = new Game();
 let cursor = new Cursor();
 let grandma = new Grandma();
-console.log(cursor);
-console.log(grandma);
 
-// draw list of productions
+// Add Render of ListOfProductions by Interval
 renderListOfProductions();
-//render it globally every "renderProductionsTime" mseconds
+// render it globally every "renderProductionsTime" mseconds
 setInterval(renderListOfProductions, game.renderProductionsTime);
-
+// Add Render of Big Cookie by Interval
+setInterval(() => { bigCookie.render(game.getAmountOfCookies()); }, game.renderBigCookieTime);
 
 //Event listeners
 bigCookie.DOMelem.addEventListener("click", () => {
-  bigCookie.render(game.getAmountOfCookies());
   game.incrementCookies();
   cursor.render(game.getAmountOfCookies());
   grandma.render(game.getAmountOfCookies());
 });
+
 // Handle production-cursor click
 cursor.DOMelem.addEventListener("click", () => {
-  if(game.decrementCookies(cursor.cost)){
+  if (game.decrementCookies(cursor.cost)) {
     cursor.addOne();
-    bigCookie.render(game.getAmountOfCookies());
     cursor.render(game.getAmountOfCookies());
-    // add interval
-    cursor.intervals.push(setInterval(() => { interv(cursor.perSecond); }, 1000));
-    
-
+    addInterval(cursor, cursor.perSecond);
   }
 });
-
 // Handle production-grandma click
 grandma.DOMelem.addEventListener("click", () => {
-  if(game.decrementCookies(grandma.cost)){
+  if (game.decrementCookies(grandma.cost)) {
     grandma.addOne();
-    bigCookie.render(game.getAmountOfCookies());
     grandma.render(game.getAmountOfCookies());
-    grandma.intervals.push(setInterval(() => { interv(grandma.perSecond); }, 1000));
-    
+    addInterval(grandma, grandma.perSecond);
+
   }
 });
 
-const interv = (howManyCookiesAdd) => {
-  game.incrementCookies(howManyCookiesAdd);
-  bigCookie.render(game.getAmountOfCookies());  
+// addInterval dynamically function 
+const addInterval = (productionName, howManyCookiesAdd) => {
+  productionName.intervals.push(setInterval(() => {
+    productionName.howManyProduced += productionName.perSecond;
+    game.incrementCookies(howManyCookiesAdd);
+  }, 1000));
 };
-
-// var refreshIntervalId = setInterval(interv, 3000);
-
-/* later */
-//clearInterval(refreshIntervalId);
