@@ -9,6 +9,10 @@
   height: auto;
   background-color: gray;
 }
+#right {
+  display: flex;
+  flex-direction: column;
+}
 #left-separator, #right-seperator {
   background-color: black;
   width:1%;
@@ -21,4 +25,9 @@
 #big-cookie {
   width:100%;
   height:100%;
+}
+.production {
+  width:100%;
+  background-color: cyan;
+  height:50px;
 }
