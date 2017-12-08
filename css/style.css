@@ -27,7 +27,13 @@
   height:100%;
 }
 .production {
+  display: block;
   width:100%;
-  background-color: cyan;
+  background-color: cyan; 
   height:50px;
+}
+.production > span {
+  display: inline;
+  cursor: default;
+  padding: 10px;
 }
