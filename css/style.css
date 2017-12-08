@@ -1,0 +1,16 @@
+#container{
+  display: flex;
+  flex-wrap: nowrap ;
+  background-color: green;
+}
+#left, #right, #bottom {
+  display: flex;
+  width: 32.67%;
+  height: auto;
+  background-color: gray;
+}
+#left-separator, #right-seperator {
+  background-color: black;
+  width:1%;
+  height:100vh;
+}
