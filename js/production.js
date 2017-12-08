@@ -8,6 +8,7 @@ export default class Production {
     this.cost = 0;
     this.sell = 0;
     this.name = "";
+    this.intervals = [];
   }
   render(cookiesAmount = 0) {
     let content = `
