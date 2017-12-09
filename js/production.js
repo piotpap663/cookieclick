@@ -1,4 +1,3 @@
-
 export default class Production {
   constructor() {
     this.howManyProduced = 0;
@@ -10,7 +9,6 @@ export default class Production {
     this.sell = 0;
     this.name = "";
     this.intervals = [];
-    //priceIncrease=1.15;
   }
   render(cookiesAmount = 0) {
     let content = `
@@ -30,9 +28,8 @@ export default class Production {
       this.isAvailable = false;
     }
   }
-  addOne() {
+  addOwner() {
     this.owned++;
-    this.cost = Math.ceil(this.baseCost * Math.pow(1.15, this.owned));
-    //this.perSecond = this.perSecond * this.owned;
+    this.cost = Math.ceil(this.baseCost * Math.floor(Math.pow(1.15, this.owned)));    
   }
-};
+}
