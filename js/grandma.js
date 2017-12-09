@@ -7,7 +7,6 @@ export default class Grandma extends Production {
     this.baseCost = 100; // 100
     this.cost = 100; //
     this.DOMelem = document.getElementById('production-grandma');
-    this.perSecond = 12;
+    this.perSecond = 1;
   }
-
-};
+}
