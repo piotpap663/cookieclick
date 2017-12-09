@@ -32,4 +32,8 @@ export default class Production {
     this.owned++;
     this.cost = Math.ceil(this.baseCost * Math.floor(Math.pow(1.15, this.owned)));    
   }
+  updateData(obj) {
+    this.howManyProduced = obj.howManyProduced;
+    this.owned = obj.owned;
+  }
 }
