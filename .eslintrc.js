@@ -3,14 +3,12 @@ module.exports = {
         "browser": true,
         "es6": true
     },    
+    "extends": ["eslint:recommended"],
     "parserOptions": {
-        "sourceType": "module",
-        "no-console":"allow",
-        "format_on_save": true
-
+        "sourceType": "module"
     },
-    
     "rules": {
+        "no-console": 0,
         "indent": [
             "error",
             2
