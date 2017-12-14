@@ -9,7 +9,6 @@ export default class Producer {
     this.howManyProduced = howManyProduced || 0;
     this.isAvailable = false;
     this.intervals = [];
-    this.mode = "BUY";
   }
   render(cookiesAmount = 0, multiplePrice = 1) {
     const content = `

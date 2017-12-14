@@ -4,19 +4,17 @@ import Producer from "./producer";
 
 class Game {
   constructor() {
-    this.allCookies = 1250000;
+    this.allCookies = 0;
     this.renderProducersTime = 250; // ms
     this.renderBigCookieTime = 100; // ms
     this.saveDataBtn = document.getElementById("save-data");
     this.listOfProducers = [];
-    this.mode = "BUY";
     this.multipliers = [1, 20.303718238, 7828749.671335188];
     // multipliers from cookieclicker doc
     this.multipleIndex = 0; // 0 -> 1, 1->10, 2->100
     this.init = this.init.bind(this);
   }
   init() {
-    console.log(this);
     this.saveDataBtn.addEventListener("click", this.saveDataToIndexedDB);
 
     // Add Render of Big Cookie by Interval every "game.renderBigCookieTime" ms
@@ -49,10 +47,10 @@ class Game {
         producer.render(this.getAmountOfCookies(), this.multipliers[this.multipleIndex]);
       });
     };
-    // render it every "renderProducersTime" miliseconds
+    // render List of All Producers every "renderProducersTime" miliseconds
     setInterval(renderListOfProducers, this.renderProducersTime);
 
-    // Render Store button -> Buy 1 10 100
+    // Render Store buttons -> Buy 1 10 100
     document.getElementById("store1").addEventListener("click", () => { this.multipleIndex = 0; });
     document.getElementById("store10").addEventListener("click", () => { this.multipleIndex = 1; });
     document.getElementById("store100").addEventListener("click", () => { this.multipleIndex = 2; });
@@ -68,7 +66,6 @@ class Game {
       this.allCookies -= decrAmount;
       return true;
     }
-    console.error("Nie stac cie");
     return false;
   }
   renderTitleOfBrowser() {
@@ -94,11 +91,10 @@ class Game {
     }
   }
   saveDataToIndexedDB() {
-    console.log("Start save");
     // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
     const indexedDB = window.indexedDB || window.mozIndexedDB ||
       window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-    // Open (or create) the <database></database>
+    // Open (or create) the database
     const open = indexedDB.open("MyCookieStore", 1);
 
     // Create the schema
@@ -107,7 +103,6 @@ class Game {
       db.createObjectStore("SaveGame", { keyPath: "id" });
     };
     open.onsuccess = () => {
-      console.log(this);
       // Start a new transaction
       const db = open.result;
       const tx = db.transaction("SaveGame", "readwrite");
@@ -133,10 +128,8 @@ class Game {
         db.close();
       };
     };
-    console.log("End save");
   }
   readDataFromIndexedDB() {
-    console.log("Start reading");
     // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
     const indexedDB = window.indexedDB || window.mozIndexedDB ||
       window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
@@ -147,7 +140,6 @@ class Game {
       const db = open.result;
       db.createObjectStore("SaveGame", { keyPath: "id" });
     };
-
     open.onsuccess = () => {
       // Start a new transaction
       const db = open.result;
@@ -159,7 +151,7 @@ class Game {
         const data = getData.result; // => "John"
         if (!data) { return; }
         game.allCookies = data.game.allCookies;
-        // update values of ech Producers -> owned, howManyProduced
+        // update values of ech Producers. Values updated -> owned, howManyProduced
         game.listOfProducers.forEach((producer, index) => {
           if (producer.name === data.listOfProducers[index].name) {
             const { owned, howManyProduced } = data.listOfProducers[index];
@@ -177,7 +169,6 @@ class Game {
       // Close the db when the transaction is done
       tx.oncomplete = () => {
         db.close();
-        console.log("End reading");
       };
     };
   }
@@ -198,5 +189,4 @@ game.listOfProducers.push(farm);
 game.listOfProducers.push(mine);
 
 document.addEventListener("DOMContentLoaded", game.init);
-// read data from IndexedDB database
 game.readDataFromIndexedDB();
