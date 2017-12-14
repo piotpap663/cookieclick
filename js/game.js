@@ -1,62 +1,61 @@
-import css from '../css/style.css';
-import bigCookie from './bigCookie';
-import Producer from './producer';
+import bigCookie from "./bigCookie";
+import Producer from "./producer";
+
+require("../css/style.css");
 
 class Game {
   constructor() {
-    this.allCookies = 1250000;
+    this.allCookies = 0;
     this.renderProducersTime = 250; // ms
     this.renderBigCookieTime = 100; // ms
     this.saveDataBtn = document.getElementById("save-data");
     this.listOfProducers = [];
-    this.mode = "BUY";
     this.multipliers = [1, 20.303718238, 7828749.671335188];
-    this.multipleIndex = 0; //0 -> 1, 1->10, 2->100
-    this.init();    
+    // multipliers from cookieclicker doc
+    this.multipleIndex = 0; // 0 -> 1, 1->10, 2->100
+    this.init = this.init.bind(this);
   }
   init() {
-    document.addEventListener("DOMContentLoaded", function (event) {
-      game.saveDataBtn.addEventListener("click", game.saveDataToIndexedDB);
+    this.saveDataBtn.addEventListener("click", this.saveDataToIndexedDB);
 
-      // Add Render of Big Cookie by Interval every "game.renderBigCookieTime" ms
-      setInterval(() => {
-        bigCookie.render(game.getAmountOfCookies());
-        bigCookie.renderCookiesPerSec(game.howManyCookiesWeProducePerSec());
-        game.renderTitleOfBrowser();
-      }, game.renderBigCookieTime);
+    // Add Render of Big Cookie by Interval every "game.renderBigCookieTime" ms
+    setInterval(() => {
+      bigCookie.render(this.getAmountOfCookies());
+      bigCookie.renderCookiesPerSec(this.howManyCookiesWeProducePerSec());
+      this.renderTitleOfBrowser();
+    }, this.renderBigCookieTime);
 
-      // Add bigCookie Onclick Event Listener
-      bigCookie.DOMelem.addEventListener("click", () => {
-        game.incrementCookies();
-      });
-      // Add OnClick Event to all Producers
-      const addProducersEventListeners = (() => {
-        game.listOfProducers.forEach((producer) => {
-          producer.DOMelem.addEventListener("click", () => {
-            if (game.decrementCookies(producer.cost)) {
-              let multiple = game.multipleIndex === 0 ? 1: Math.pow(10, game.multipleIndex);
-              producer.addOwner(multiple, game.multipliers[game.multipleIndex]);
-              producer.render(game.getAmountOfCookies(), game.multipliers[game.multipleIndex]);
-              game.addInterval(producer, producer.perSecond);
-            }
-          });
-        });
-      })();
-
-      // Render List of All Producers
-      const renderListOfProducers = () => {
-        game.listOfProducers.forEach((producer) => {
-          producer.render(game.getAmountOfCookies(),  game.multipliers[game.multipleIndex]);
-        });
-      };
-      // render it every "renderProducersTime" miliseconds
-      setInterval(renderListOfProducers, game.renderProducersTime);
-
-      // Render Store button -> Buy 1 10 100
-      document.getElementById("store1").addEventListener("click", () => game.multipleIndex = 0);
-      document.getElementById("store10").addEventListener("click", () => game.multipleIndex = 1);
-      document.getElementById("store100").addEventListener("click", () => game.multipleIndex = 2);
+    // Add bigCookie Onclick Event Listener
+    bigCookie.DOMelem.addEventListener("click", () => {
+      this.incrementCookies();
     });
+    // Add OnClick Event to all Producers
+    (() => {
+      this.listOfProducers.forEach((producer) => {
+        producer.DOMelem.addEventListener("click", () => {
+          if (this.decrementCookies(producer.cost)) {
+            const multiple = this.multipleIndex === 0 ? 1 : 10 ** this.multipleIndex;
+            producer.addOwner(multiple, this.multipliers[this.multipleIndex]);
+            producer.render(this.getAmountOfCookies(), this.multipliers[this.multipleIndex]);
+            this.addInterval(producer, producer.perSecond);
+          }
+        });
+      });
+    })();
+    // Render List of All Producers
+    const renderListOfProducers = () => {
+      this.listOfProducers.forEach((producer) => {
+        producer.render(this.getAmountOfCookies(), this.multipliers[this.multipleIndex]);
+      });
+    };
+    renderListOfProducers();
+    // render List of All Producers every "renderProducersTime" miliseconds
+    //setInterval(renderListOfProducers, this.renderProducersTime);
+
+    // Render Store buttons -> Buy 1 10 100
+    document.getElementById("store1").addEventListener("click", () => { this.multipleIndex = 0; });
+    document.getElementById("store10").addEventListener("click", () => { this.multipleIndex = 1; });
+    document.getElementById("store100").addEventListener("click", () => { this.multipleIndex = 2; });
   }
   getAmountOfCookies() {
     return Math.floor(this.allCookies);
@@ -65,16 +64,14 @@ class Game {
     this.allCookies = Math.floor((this.allCookies + incrAmount) * 100) / 100;
   }
   decrementCookies(decrAmount = 1) {
-    if (this.allCookies >= decrAmount * game.multipliers[game.multipleIndex]) {
+    if (this.allCookies >= decrAmount * this.multipliers[this.multipleIndex]) {
       this.allCookies -= decrAmount;
       return true;
-    } else {
-      console.error("Nie stac cie");
-      return false;
     }
+    return false;
   }
   renderTitleOfBrowser() {
-    document.title = Math.floor(this.allCookies).toLocaleString() + " cookies";
+    document.title = `${Math.floor(this.allCookies).toLocaleString()} cookies`;
   }
   howManyCookiesWeProducePerSec() {
     let sum = 0;
@@ -84,28 +81,29 @@ class Game {
     return sum;
   }
   addInterval(producerName, howManyCookiesAdd, time = 1000) {
-    let multiple = game.multipleIndex === 0 ? 1: Math.pow(10, game.multipleIndex);
+    const multiple = this.multipleIndex === 0 ? 1 : 10 ** this.multipleIndex;
     for (let i = 0; i < multiple; i += 1) {
       producerName.intervals.push(setInterval(() => {
-        // Math.floor because it does not show vaild perSec value of cursor which is incremented by 0.1
-        producerName.howManyProduced = Math.floor((producerName.howManyProduced + producerName.perSecond) * 100) / 100;
-        game.incrementCookies(howManyCookiesAdd);
+        // Math.floor because it does not show vaild perSec
+        // value of cursor which is incremented by 0.1
+        const prepareVal = producerName.howManyProduced + producerName.perSecond;
+        producerName.howManyProduced = Math.floor((prepareVal) * 100) / 100;
+        this.incrementCookies(howManyCookiesAdd);
       }, time));
     }
   }
   saveDataToIndexedDB() {
-    console.log("Start save");
-    // This works on all devices/browsers, and uses IndexedDBShim as a final fallback 
-    const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-    // Open (or create) the <database></database>
+    // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
+    const indexedDB = window.indexedDB || window.mozIndexedDB ||
+      window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+    // Open (or create) the database
     const open = indexedDB.open("MyCookieStore", 1);
 
     // Create the schema
-    open.onupgradeneeded = function () {
+    open.onupgradeneeded = () => {
       const db = open.result;
-      const store = db.createObjectStore("SaveGame", { keyPath: "id" });
+      db.createObjectStore("SaveGame", { keyPath: "id" });
     };
-
     open.onsuccess = () => {
       // Start a new transaction
       const db = open.result;
@@ -114,34 +112,36 @@ class Game {
       // Add some data
       const obj = [];
       game.listOfProducers.forEach((prod) => {
-        const { baseCost, cost, howManyProduced, isAvailable, name, owned, perSec } = prod;
-        obj.push({ baseCost, cost, howManyProduced, isAvailable, name, owned, perSec });
+        const {
+          baseCost, cost, howManyProduced, isAvailable, name, owned, perSec,
+        } = prod;
+        obj.push({
+          baseCost, cost, howManyProduced, isAvailable, name, owned, perSec,
+        });
       });
       store.put({
         id: 12345,
-        game: { "allCookies": game.allCookies },
-        listOfProducers: obj
+        game: { allCookies: game.allCookies },
+        listOfProducers: obj,
       });
 
       // Close the db when the transaction is done
-      tx.oncomplete = function () {
+      tx.oncomplete = () => {
         db.close();
       };
     };
-    console.log("End save");
   }
   readDataFromIndexedDB() {
-    console.log("Start reading");
-    // This works on all devices/browsers, and uses IndexedDBShim as a final fallback 
-    const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+    // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
+    const indexedDB = window.indexedDB || window.mozIndexedDB ||
+      window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
     // Open (or create) the database
     const open = indexedDB.open("MyCookieStore", 1);
     // Create the schema
-    open.onupgradeneeded = function () {
+    open.onupgradeneeded = () => {
       const db = open.result;
-      const store = db.createObjectStore("SaveGame", { keyPath: "id" });
+      db.createObjectStore("SaveGame", { keyPath: "id" });
     };
-
     open.onsuccess = () => {
       // Start a new transaction
       const db = open.result;
@@ -150,10 +150,10 @@ class Game {
       // Query the data
       const getData = store.get(12345);
       getData.onsuccess = () => {
-        const data = getData.result;  // => "John"
+        const data = getData.result; // => "John"
         if (!data) { return; }
         game.allCookies = data.game.allCookies;
-        // update values of ech Producers -> owned, howManyProduced
+        // update values of ech Producers. Values updated -> owned, howManyProduced
         game.listOfProducers.forEach((producer, index) => {
           if (producer.name === data.listOfProducers[index].name) {
             const { owned, howManyProduced } = data.listOfProducers[index];
@@ -164,19 +164,18 @@ class Game {
         // Add intervals for every Producer
         game.listOfProducers.forEach((producer) => {
           for (let i = 0; i < producer.owned; i += 1) {
-            game.addInterval(producer, producer.perSecond, 1000);
+            this.addInterval(producer, producer.perSecond, 1000);
           }
         });
       };
       // Close the db when the transaction is done
-      tx.oncomplete = function () {
+      tx.oncomplete = () => {
         db.close();
-        console.log("End reading");
       };
     };
   }
 }
-// Initialize 
+// Initialize
 // constructor -> DOMid, name, baseCost, perSecond, owned, howManyProduced
 const cursor = new Producer("producer-cursor", "Cursor", 15, 0.1);
 const grandma = new Producer("producer-grandma", "Grandma", 100, 1);
@@ -191,5 +190,5 @@ game.listOfProducers.push(grandma);
 game.listOfProducers.push(farm);
 game.listOfProducers.push(mine);
 
-// read data from IndexedDB database
+document.addEventListener("DOMContentLoaded", game.init);
 game.readDataFromIndexedDB();

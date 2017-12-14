@@ -1,25 +1,28 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: './js/game.js',
+  entry: "./js/game.js",
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, "public"),
+    filename: "bundle.js",
   },
   module: {
     rules: [{
-      loader: 'babel-loader',
+      loader: "babel-loader",
       test: /\.js$/,
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }, {
       test: /\.s?css$/,
-	   use: [
-                'style-loader',
-                'css-loader',
-            ]
-        }]
+      use: [
+        "style-loader",
+        "css-loader",
+      ],
+    },
+    { test: /\.(jpg|png)$/, loader: "url-loader?limit=10000&minetype=image/jpg" }
+    ],
+
   },
   devServer: {
-    contentBase: path.join(__dirname, 'public')
-  }
+    contentBase: path.join(__dirname, "public"),
+  },
 };
