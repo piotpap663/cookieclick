@@ -1,5 +1,5 @@
 export default class Producer {
-  constructor(DOMid, name, baseCost, perSecond, isAvailable, owned, howManyProduced) {
+  constructor(DOMid, name, baseCost, perSecond, owned, howManyProduced) {
     this.DOMelem = document.getElementById(DOMid);
     this.name = name || "";
     this.baseCost = baseCost || 0;
@@ -7,20 +7,21 @@ export default class Producer {
     this.perSecond = perSecond || 1;
     this.owned = owned || 0;
     this.howManyProduced = howManyProduced || 0;
-    this.isAvailable = isAvailable || false;
+    this.isAvailable = false;
     this.intervals = [];
+    this.mode = "BUY";
   }
-  render(cookiesAmount = 0) {
+  render(cookiesAmount = 0, multiplePrice = 1) {
     let content = `
     <span>Name:${this.name}</span>
-    <span>*${this.cost}</span>
+    <span>*${(Math.ceil(this.cost * multiplePrice)).toLocaleString()}</span>
     <span>Owned:${this.owned}</span>
     <span>Produced:${Math.floor(this.howManyProduced)}</span>
     <span>perSec: ${Math.floor((this.perSecond * this.owned) * 10) / 10}</span>
     `; //should be new onhover div for howManyProduced, perSec with same interval as bigcookie beacuse of delay
     this.DOMelem.innerHTML = content;
 
-    if (cookiesAmount >= this.cost) {
+    if (cookiesAmount >= this.cost * multiplePrice) {
       this.DOMelem.style.opacity = 1;
       this.isAvailable = true;
     } else {
@@ -28,8 +29,9 @@ export default class Producer {
       this.isAvailable = false;
     }
   }
-  addOwner() {
-    this.owned++;
+  addOwner(multiple = 1) {
+    this.owned+=multiple;
     this.cost = Math.ceil(this.baseCost * Math.pow(1.15, this.owned));
+    
   }
 }
