@@ -3,7 +3,7 @@ const bigCookie = {
   amount: document.getElementById("amountOfCookies"),
   allCookiesProducePerSec: document.getElementById("all-cookies-per-sec"),
   renderCookiesPerSec(amount) {
-    this.allCookiesProducePerSec.innerHTML = amount; 
+    this.allCookiesProducePerSec.innerHTML = amount;
   },
   render: function (howMany) {
     this.amount.innerHTML = howMany;
