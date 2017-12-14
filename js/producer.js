@@ -14,8 +14,8 @@ export default class Producer {
     const content = `
     <span>Name:${this.name}</span>
     <span>*${(Math.ceil(this.cost * multiplePrice)).toLocaleString()}</span>
-    <span>Owned:${this.owned}</span>
-    <span>Produced:${Math.floor(this.howManyProduced)}</span>
+    <span>Owned:${this.owned.toLocaleString()}</span>
+    <span>Produced:${Math.floor(this.howManyProduced).toLocaleString()}</span>
     <span>perSec: ${Math.floor((this.perSecond * this.owned) * 10) / 10}</span>
     `;
     this.DOMelem.innerHTML = content;
