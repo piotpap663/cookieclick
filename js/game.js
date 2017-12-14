@@ -1,6 +1,7 @@
-import css from "../css/style.css";
 import bigCookie from "./bigCookie";
 import Producer from "./producer";
+
+require("../css/style.css");
 
 class Game {
   constructor() {
@@ -47,8 +48,9 @@ class Game {
         producer.render(this.getAmountOfCookies(), this.multipliers[this.multipleIndex]);
       });
     };
+    renderListOfProducers();
     // render List of All Producers every "renderProducersTime" miliseconds
-    setInterval(renderListOfProducers, this.renderProducersTime);
+    //setInterval(renderListOfProducers, this.renderProducersTime);
 
     // Render Store buttons -> Buy 1 10 100
     document.getElementById("store1").addEventListener("click", () => { this.multipleIndex = 0; });

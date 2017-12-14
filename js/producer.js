@@ -12,11 +12,11 @@ export default class Producer {
   }
   render(cookiesAmount = 0, multiplePrice = 1) {
     const content = `
-    <span>Name:${this.name}</span>
-    <span>*${(Math.ceil(this.cost * multiplePrice)).toLocaleString()}</span>
-    <span>Owned:${this.owned.toLocaleString()}</span>
-    <span>Produced:${Math.floor(this.howManyProduced).toLocaleString()}</span>
-    <span>perSec: ${Math.floor((this.perSecond * this.owned) * 10) / 10}</span>
+    <span class="name">Name:${this.name}</span>
+    <span class="price">*${(Math.ceil(this.cost * multiplePrice)).toLocaleString()}</span>
+    <span class="owned">Owned:${this.owned.toLocaleString()}</span>
+    <span class="produced">Produced:${Math.floor(this.howManyProduced).toLocaleString()}</span>
+    <span class="per-sec">perSec: ${Math.floor((this.perSecond * this.owned) * 10) / 10}</span>
     `;
     this.DOMelem.innerHTML = content;
 
