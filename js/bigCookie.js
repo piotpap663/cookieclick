@@ -5,9 +5,7 @@ const bigCookie = {
   renderCookiesPerSec(amount) {
     this.allCookiesProducePerSec.innerHTML = amount;
   },
-  render: function (howMany) {
-    this.amount.innerHTML = howMany;
-  }
+  render: (howMany) => { bigCookie.amount.innerHTML = howMany; },
 };
 bigCookie.DOMelem = document.getElementById("big-cookie");
 export default bigCookie;

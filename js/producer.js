@@ -12,13 +12,13 @@ export default class Producer {
     this.mode = "BUY";
   }
   render(cookiesAmount = 0, multiplePrice = 1) {
-    let content = `
+    const content = `
     <span>Name:${this.name}</span>
     <span>*${(Math.ceil(this.cost * multiplePrice)).toLocaleString()}</span>
     <span>Owned:${this.owned}</span>
     <span>Produced:${Math.floor(this.howManyProduced)}</span>
     <span>perSec: ${Math.floor((this.perSecond * this.owned) * 10) / 10}</span>
-    `; //should be new onhover div for howManyProduced, perSec with same interval as bigcookie beacuse of delay
+    `;
     this.DOMelem.innerHTML = content;
 
     if (cookiesAmount >= this.cost * multiplePrice) {
@@ -30,8 +30,7 @@ export default class Producer {
     }
   }
   addOwner(multiple = 1) {
-    this.owned+=multiple;
-    this.cost = Math.ceil(this.baseCost * Math.pow(1.15, this.owned));
-    
+    this.owned += multiple;
+    this.cost = Math.ceil(this.baseCost * (1.15 ** this.owned));
   }
 }
