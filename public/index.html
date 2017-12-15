@@ -1,46 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,800&amp;subset=latin-ext" rel="stylesheet">
 </head>
 
 <body>
     <div id="container">
         <div id="left">
             <div class="" id="big-cookie-container">
-                <div id="amountOfCookies"></div>
-                <span>Cookies per sec: </span>
-                <span id="all-cookies-per-sec"></span>
-                <img id="big-cookie" alt="big Cookie">
+                <div class="store-name">Plastic Goblin's bakery</div>
+
+                <div class="big-cookie-values">
+                    <span id="amountOfCookies"></span>
+                    <span> cookies</span>
+                    <div></div>
+                    <span><small>per second:</small></span>
+                    <span id="all-cookies-per-sec"></span>
+                </div>
+                <div id="big-cookie" alt="big Cookie"></div>
             </div>
         </div>
         <div id="left-separator"></div>
-        <div id="bottom">
-            fdsafdsafs
+        <div id="center">
+            <button id="save-data">Save Game</button>
         </div>
         <div id="right-seperator"></div>
         <div id="right">
             <div id="buy-sell-mode">
                 <div class="buy-sell-con">
                     <div id="buy">Buy</div>
-                    <div id="sell">Sell</div>
                 </div>
 
-                <div id="store1">1</div>
+                <div id="store1" class="active-multiplier">1</div>
                 <div id="store10">10</div>
                 <div id="store100">100</div>
-                <div id="storemax">Max</div>
             </div>
             <div id="producer-cursor" class="cursor producer"></div>
             <div id="producer-grandma" class="grandma producer"></div>
             <div id="producer-farm" class="farm producer"></div>
             <div id="producer-mine" class="mine producer"></div>
-            <div id="producer-factory" class="factory producer"></div>
-            <button id="save-data"></button>
+            <div id="producer-bakery" class="bakery producer"></div>
         </div>
     </div>
     <script src="/bundle.js"></script>

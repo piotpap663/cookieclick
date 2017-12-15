@@ -1,12 +1,47 @@
+body {
+  margin:0;
+	padding: 0;
+	border: 0;
+  color:white;
+  font-family: 'Merriweather', Georgia,serif;
+  font-size: 1.2em;
+}
+div, span {
+  user-select: none;
+}
 #container{
   display: flex;
   flex-wrap: nowrap ;
+  min-height: 702px;
 }
-#left, #right, #bottom {
+.store-name {
+  background: rgba(0,0,0,0.66);
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width:70%;
+  text-align:center;
+  padding:10px;
+  z-index:999;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+#left, #right, #center {
   display: flex;
   width: 32.67%;
   height: auto;
   background-color: gray;
+}
+
+@keyframes moving-bg {
+  0%   { background-position-y: 0;}
+  100%   { background-position-y: 512px;}
+}
+#left {
+  background: url('images/snow2.jpg') repeat;
+  -webkit-animation: moving-bg 7s linear infinite;
+  -moz-animation: moving-bg 7s linear infinite;
+  animation: moving-bg 7s linear infinite;
+  background-repeat-y: repeat;
 }
 #right {
   display: flex;
@@ -17,6 +52,11 @@
   height:auto;
   background: url('images/column.png') repeat;  
 }
+#center {
+  background: url('images/bgBlue.jpg');  
+  
+}
+ /* ----------------------- BIG COOKIE -----------------------*/
 @keyframes enlarge {
   0%   {transform:scale(1)}
   20%   {transform:scale(1.05)}
@@ -26,19 +66,21 @@
   100%   {transform:scale(1.05)}
 }
 #big-cookie-container {
+  margin: 0;
   position: relative;
   width: 100%;
-  padding: 10%;
+  padding: 3%;
+  text-align: center;
 }
 #big-cookie {
-  position: absolute;
-  top: 6em;
-  left: 7em;
+  display: inline-block;
+  position: relative;
+  justify-content: center;
+  background: url('images/cookie.png') no-repeat;
+  align-items: center;
   width: 235px;
-  height: 41%;
-  background: url('images/cookie.png') no-repeat;  
+  height: 235px;
   background-size: 235px;
-  background-color: red;
   border-radius: 127px;
   cursor: pointer;
 }
@@ -47,6 +89,18 @@
   animation-duration: .3s;
   transform: scale(1.05);
 }
+.big-cookie-values {
+  background: rgba(0,0,0,0.66);
+  text-align:center;
+  position: relative;
+  padding: .5em;
+  margin-bottom: 1.5em;
+  font-size: 1.4em;
+}
+#amountOfCookies {
+  font-size: 2em;
+}
+ /* ------------------- PRODUCERS ----------------------- */
 .producer {
   display: flex;
   position: relative;
@@ -67,32 +121,44 @@
 .producer:hover {
   box-shadow: 0px 0px 16px #fff inset, 0px 0px 1px #000;
 }
+
 .name {
   position: absolute;
-  top:1em;
-  left:10em;
-  background: url('images/cursor.png') no-repeat center;
-  background-size:100%;
+  top:.2em;
+  left:.7em;
+  font-size: 2em;
 }
 .price {
   position: absolute;
-  top:1em;
-  left:20em;
+  top:2.7em;
+  left:2em;
+}
+.price:before {
+  content: "";
+  width: 16px;
+  margin-top: 5px;
+  margin-right: 4px;
+  height: 15px;
+  background: url("images/money.png")
 }
 .owned {
   position: absolute;
-  top:1em;
-  right:1em;
+  font-size: 2em;
+  top:.3em;
+  right:.3em;
+  opacity: 0.2;
+  color: #000;
+  text-shadow: 0px 0px 8px #fff;
 }
 .produced {
   position: absolute;
-  top:2em;
-  left:1em;
+  top:2.5em;
+  left:11em;
 }
 .per-sec {
   position: absolute;
   top:1em;
-  left:3em;
+  left:11em;
 }
 .active {
   font-weight: bold;
@@ -102,43 +168,53 @@
   width:100px;
   height:50px;
 }
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
-
 #buy-sell-mode {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1em;
+  background-color: rgba(31, 27, 27, 0.89);
 }
 .buy-sell-con {
   display: inline-block;
 }
-#buy, #sell {
+#buy {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0.5em;
+  padding: .7em;
   top: 0px;
   left: 0px;
-  width: 47px;
-  height: 20px;
-  background-color: red;
+  width: 3em;
+  height: 1em;
+  background-color: rgba(72, 68, 68, 0.09);
   cursor: pointer;
 }
 #store1, #store10, #store100 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height:30px;
-  background-color: red;
+  width: 3em;
+  height: 2em;
+  background-color: rgba(72, 68, 68, 0.09);
   cursor: pointer;
+  font-family: Tahoma;
+  font-weight: 700;
+  opacity: .7;
+}
+#store1:hover , #store10:hover , #store100:hover, #buy {
+text-shadow: 0px 1px 0px #000, 0px 0px 1px #fff, 0px 0px 4px #fff;
+opacity: 1;
+}
+.active-multiplier {
+  transform: scale(2);
+}
+.not-available {
+  opacity: .5;
+}
+#save-data {
+  background-color: rgba(10, 9, 9, 0.7);
+  color: white;
+  font-family: 'Merriweather Sans', sans-serif;
 }

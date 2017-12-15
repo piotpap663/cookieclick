@@ -4,7 +4,6 @@
   "description": "cookieclicker",
   "main": "index.js",
   "scripts": {
-    "serve": "live-server public/",
     "build": "webpack",
     "dev-server": "webpack-dev-server"
   },
