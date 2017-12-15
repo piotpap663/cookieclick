@@ -7,5 +7,4 @@ const bigCookie = {
   },
   render: (howMany) => { bigCookie.amount.innerHTML = howMany.toLocaleString(); },
 };
-bigCookie.DOMelem = document.getElementById("big-cookie");
 export default bigCookie;

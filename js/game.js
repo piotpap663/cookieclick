@@ -1,12 +1,13 @@
 import bigCookie from "./bigCookie";
 import Producer from "./producer";
+import beautifyNumber from "./beautifyNumber";
 
 require("../css/style.css");
 
 class Game {
   constructor() {
-    this.allCookies = 0;
-    this.renderProducersTime = 250; // ms
+    this.allCookies = 121;
+    this.renderProducersTime = 400; // ms
     this.renderBigCookieTime = 100; // ms
     this.saveDataBtn = document.getElementById("save-data");
     this.listOfProducers = [];
@@ -20,7 +21,7 @@ class Game {
 
     // Add Render of Big Cookie by Interval every "game.renderBigCookieTime" ms
     setInterval(() => {
-      bigCookie.render(this.getAmountOfCookies());
+      bigCookie.render(beautifyNumber(this.getAmountOfCookies()));
       bigCookie.renderCookiesPerSec(this.howManyCookiesWeProducePerSec());
       this.renderTitleOfBrowser();
     }, this.renderBigCookieTime);
@@ -50,12 +51,27 @@ class Game {
     };
     renderListOfProducers();
     // render List of All Producers every "renderProducersTime" miliseconds
-    //setInterval(renderListOfProducers, this.renderProducersTime);
+    setInterval(renderListOfProducers, this.renderProducersTime);
 
     // Render Store buttons -> Buy 1 10 100
-    document.getElementById("store1").addEventListener("click", () => { this.multipleIndex = 0; });
-    document.getElementById("store10").addEventListener("click", () => { this.multipleIndex = 1; });
-    document.getElementById("store100").addEventListener("click", () => { this.multipleIndex = 2; });
+    document.getElementById("store1").addEventListener("click", function () {
+      game.multipleIndex = 0;
+      document.getElementById("store10").classList.remove("active-multiplier");
+      document.getElementById("store100").classList.remove("active-multiplier");
+      this.classList.add("active-multiplier");
+    });
+    document.getElementById("store10").addEventListener("click", function () {
+      game.multipleIndex = 1;
+      document.getElementById("store1").classList.remove("active-multiplier");
+      document.getElementById("store100").classList.remove("active-multiplier");
+      this.classList.add("active-multiplier");
+    });
+    document.getElementById("store100").addEventListener("click", function () {
+      game.multipleIndex = 2;
+      document.getElementById("store1").classList.remove("active-multiplier");
+      document.getElementById("store10").classList.remove("active-multiplier");
+      this.classList.add("active-multiplier");
+    });
   }
   getAmountOfCookies() {
     return Math.floor(this.allCookies);
@@ -71,14 +87,14 @@ class Game {
     return false;
   }
   renderTitleOfBrowser() {
-    document.title = `${Math.floor(this.allCookies).toLocaleString()} cookies`;
+    document.title = `${beautifyNumber(Math.floor(this.allCookies))} cookies`;
   }
   howManyCookiesWeProducePerSec() {
     let sum = 0;
     this.listOfProducers.forEach((producer) => {
       sum += Math.floor(((producer.perSecond) * producer.owned) * 10) / 10;
     });
-    return sum;
+    return beautifyNumber(sum);
   }
   addInterval(producerName, howManyCookiesAdd, time = 1000) {
     const multiple = this.multipleIndex === 0 ? 1 : 10 ** this.multipleIndex;
@@ -93,6 +109,7 @@ class Game {
     }
   }
   saveDataToIndexedDB() {
+    this.innerHTML = "Saving...";
     // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
     const indexedDB = window.indexedDB || window.mozIndexedDB ||
       window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
@@ -124,10 +141,11 @@ class Game {
         game: { allCookies: game.allCookies },
         listOfProducers: obj,
       });
-
+      this.innerHTML = "Saved";
       // Close the db when the transaction is done
       tx.oncomplete = () => {
         db.close();
+        setTimeout(() => { this.innerHTML = "Save Game"; }, 1000);
       };
     };
   }
@@ -175,12 +193,12 @@ class Game {
     };
   }
 }
-// Initialize
-// constructor -> DOMid, name, baseCost, perSecond, owned, howManyProduced
+// Init
 const cursor = new Producer("producer-cursor", "Cursor", 15, 0.1);
 const grandma = new Producer("producer-grandma", "Grandma", 100, 1);
 const farm = new Producer("producer-farm", "Farm", 1100, 8);
 const mine = new Producer("producer-mine", "Mine", 12000, 47);
+const bakery = new Producer("producer-bakery", "Bakery", 130000, 260);
 const game = new Game();
 
 // Add every producer to List of Producers Array
@@ -189,6 +207,8 @@ game.listOfProducers.push(cursor);
 game.listOfProducers.push(grandma);
 game.listOfProducers.push(farm);
 game.listOfProducers.push(mine);
+game.listOfProducers.push(bakery);
 
-document.addEventListener("DOMContentLoaded", game.init);
 game.readDataFromIndexedDB();
+// initialize game when DOM is ready
+document.addEventListener("DOMContentLoaded", game.init);
