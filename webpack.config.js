@@ -18,7 +18,14 @@ module.exports = {
         "css-loader",
       ],
     },
-    { test: /\.(jpg|png)$/, loader: "url-loader?limit=10000&minetype=image/jpg" }
+    {
+      test: /\.(png|jpg|gif)$/,
+      use: [
+        {
+          loader: "url-loader",
+        },
+      ],
+    },
     ],
 
   },
