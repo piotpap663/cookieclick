@@ -2,86 +2,104 @@
 
 A project based on cookie clicker game http://orteil.dashnet.org/cookieclicker/
 
+## Requirements
+
+For development, you will only need Node.js installed on your environement.
+
+### Node
+
+[Node](http://nodejs.org/) is really easy to install & now include [NPM](https://npmjs.org/).
+You can use [YARN](https://yarnpkg.com) instead of npm if you like.
+You should be able to run the following command after the installation procedure
+below.
+```sh
+    $ node --version
+    v0.10.24
+
+    $ npm --version
+    1.3.21
+```
+
+#### Node installation on OS X
+
+You will need to use a Terminal. On OS X, you can find the default terminal in
+`/Applications/Utilities/Terminal.app`.
+
+Please install [Homebrew](http://brew.sh/) if it's not already done with the following command.
+```sh
+    $ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+```
+If everything when fine, you should run
+```sh
+    brew install node
+```
+#### Node installation on Linux
+```sh
+    sudo apt-get install python-software-properties
+    sudo add-apt-repository ppa:chris-lea/node.js
+    sudo apt-get update
+    sudo apt-get install nodejs
+```
+
+#### Node installation on Windows
+
+Just go on [official Node.js website](http://nodejs.org/) & grab the installer.
+Also, be sure to have `git` available in your PATH, `npm` might need it.
+
+---
+
+## Install
+```sh
+    $ git clone https://github.com/piotpap663/cookieclick.git
+    $ cd cookieclick-master
+    and run
+    $ npm install
+    or
+    $ yarn install
+```
+
+---
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+---
 
-What things you need to install the software and how to install them
-
+## Start & watch
+```sh
+    $ npm dev-server
 ```
-Give examples
+    or 
+    if you use yarn
+```sh
+    $ yarn run dev-server
 ```
+    It will run app on localhost server
+    Just check the ip and port on your command lines
+    Put the address in your browser and it works
+    Default: localhost:8080
 
-### Installing
+---
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
+## Simple build for production
+```sh
+    $ npm run build
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+    or
+    if you use yarn
+```sh
+    $ yarn run build
 ```
 
-### And coding style tests
+---
 
-Explain what these tests test and why
+## Author
 
-```
-Give an example
-```
+* **Piotr Papiernik** - [LinkedIn](https://linkedin.com/in/piotr-papiernik/) 
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+This project is licensed under the MIT License
