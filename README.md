@@ -12,7 +12,7 @@ For development, you will only need Node.js installed on your environement.
 You can use [YARN](https://yarnpkg.com) instead of npm if you like.
 You should be able to run the following command after the installation procedure
 below.
-```sh
+```
     $ node --version
     v0.10.24
 
@@ -26,15 +26,15 @@ You will need to use a Terminal. On OS X, you can find the default terminal in
 `/Applications/Utilities/Terminal.app`.
 
 Please install [Homebrew](http://brew.sh/) if it's not already done with the following command.
-```sh
+```
     $ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 ```
 If everything when fine, you should run
-```sh
+```
     brew install node
 ```
 #### Node installation on Linux
-```sh
+```
     sudo apt-get install python-software-properties
     sudo add-apt-repository ppa:chris-lea/node.js
     sudo apt-get update
@@ -49,12 +49,16 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 ---
 
 ## Install
-```sh
+```
     $ git clone https://github.com/piotpap663/cookieclick.git
     $ cd cookieclick-master
+```
     and run
+```
     $ npm install
+```
     or
+```
     $ yarn install
 ```
 
@@ -67,12 +71,12 @@ These instructions will get you a copy of the project up and running on your loc
 ---
 
 ## Start & watch
-```sh
+```
     $ npm dev-server
 ```
     or 
     if you use yarn
-```sh
+```
     $ yarn run dev-server
 ```
     It will run app on localhost server
@@ -83,12 +87,12 @@ These instructions will get you a copy of the project up and running on your loc
 ---
 
 ## Simple build for production
-```sh
+```
     $ npm run build
 ```
     or
     if you use yarn
-```sh
+```
     $ yarn run build
 ```
 
