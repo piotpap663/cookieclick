@@ -72,20 +72,19 @@ It will run app on localhost server
 Just check the ip and port on your command lines
 Put the address in your browser and it'll works
 
-#####**Default address:**
+##### **Default address:**
 
 		localhost:8080
-		
----
 
+---
 ## **Development**
 
-###Adding new producer "grandpa"
+### Adding new producer "grandpa"
 ``` 
 	# Add new div element to index.html
 	<div id="producer-grandpa" class="producer"></div>
 ```
-#####Add producer declaration into game.js file
+##### Add producer declaration into game.js file
 
 		# constructor values
 		# new Producer(DOMid, name, baseCost, perSecond);
