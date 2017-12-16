@@ -74,7 +74,7 @@ Put the address in your browser and it'll works
 
 ##### **Default address:**
 
-		localhost:8080
+	localhost:8080
 
 ---
 ## **Development**
@@ -86,12 +86,12 @@ Put the address in your browser and it'll works
 ```
 ##### Add producer declaration into game.js file
 ```
-		# constructor values
-		# new Producer(DOMid, name, baseCost, perSecond);
-		# DOMid - element id [string], 
-		# name - name of producer [string], 
-		# baseCost - cost for buying one producer, 
-		# perSecond - How many cookies produce per one second
+	# constructor values
+	# new Producer(DOMid, name, baseCost, perSecond);
+	# DOMid - element id [string], 
+	# name - name of producer [string], 
+	# baseCost - cost for buying one producer, 
+	# perSecond - How many cookies produce per one second
 ```
 ```javascript
 	const grandpa= new Producer("producer-grandpa", "Grandpa", 130000, 260);
@@ -112,7 +112,7 @@ Put the address in your browser and it'll works
 class Game {
 	constructor() {
 		this.renderProducersTime = 400; // ms
-	    this.renderBigCookieTime = 100; // ms
+	  this.renderBigCookieTime = 100; // ms
 	}
 ```
 ---
