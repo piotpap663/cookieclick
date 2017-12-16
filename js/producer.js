@@ -1,14 +1,14 @@
 import beautifyNumber from "./beautifyNumber";
 
 export default class Producer {
-  constructor(DOMid, name, baseCost, perSecond, owned, howManyProduced) {
+  constructor(DOMid, name, baseCost, perSecond) {
     this.DOMelem = document.getElementById(DOMid);
     this.name = name || "";
     this.baseCost = baseCost || 0;
     this.cost = baseCost;
     this.perSecond = perSecond || 1;
-    this.owned = owned || 0;
-    this.howManyProduced = howManyProduced || 0;
+    this.owned = 0;
+    this.howManyProduced = 0;
     this.isAvailable = false;
     this.intervals = [];
   }

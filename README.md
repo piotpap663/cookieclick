@@ -1,8 +1,9 @@
-# Cookie Clicker
+# **Cookie Clicker**
 
 A project based on cookie clicker game http://orteil.dashnet.org/cookieclicker/
 
-## Requirements
+---
+## **Requirements**
 
 For development, you will only need Node.js installed on your environement.
 
@@ -44,66 +45,95 @@ If everything when fine, you should run
 #### Node installation on Windows
 
 Just go on [official Node.js website](http://nodejs.org/) & grab the installer.
-Also, be sure to have `git` available in your PATH, `npm` might need it.
+	Also, be sure to have `git` available in your PATH, `npm` might need it.
 
 ---
 
-## Install
+## **Install**
 ```
     $ git clone https://github.com/piotpap663/cookieclick.git
     $ cd cookieclick-master
-```
-    and run
-```
+
     $ npm install
-```
-    or
-```
+    #or
     $ yarn install
 ```
-
 ---
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
----
-
-## Start & watch
+## **Getting started**
 ```
     $ npm dev-server
-```
-    or 
-    if you use yarn
-```
+
+    #or if you use yarn
+    
     $ yarn run dev-server
 ```
-    It will run app on localhost server
-    Just check the ip and port on your command lines
-    Put the address in your browser and it works
-    Default: localhost:8080
+It will run app on localhost server
+Just check the ip and port on your command lines
+Put the address in your browser and it'll works
 
+#####**Default address:**
+
+		localhost:8080
+		
 ---
 
-## Simple build for production
+## **Development**
+
+###Adding new producer "grandpa"
+``` 
+	# Add new div element to index.html
+	<div id="producer-grandpa" class="producer"></div>
 ```
-    $ npm run build
+#####Add producer declaration into game.js file
+
+		# constructor values
+		# new Producer(DOMid, name, baseCost, perSecond);
+		# DOMid - element id [string], 
+		# name - name of producer [string], 
+		# baseCost - cost for buying one producer, 
+		# perSecond - How many cookies produce per one second
+	
 ```
-    or
-    if you use yarn
+	const grandpa= new Producer("producer-grandpa", "Grandpa", 130000, 260);
+
+	game.listOfProducers.push(grandpa);
 ```
+---
+## **Rendering intervals**
+
+	Inside constructor of Game class you will find a time intervals declaration 
+	
+	renderProducersTime - rendering List of Producers
+	renderBigCookieTime  - rendering how many cookies we have
+	
+```
+#game.js
+
+class Game {
+	constructor() {
+		this.renderProducersTime = 400; // ms
+	    this.renderBigCookieTime = 100; // ms
+	}
+```
+---
+## **Simple build for production**
+```
+    $ npm build
+
+    #or if you use yarn
+    
     $ yarn run build
 ```
 
 ---
 
-## Author
+## **Author**
 
 * **Piotr Papiernik** - [LinkedIn](https://linkedin.com/in/piotr-papiernik/) 
 
 ---
 
-## License
+## **License**
 
-This project is licensed under the MIT License
+	This project is licensed under the MIT License
