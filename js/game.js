@@ -6,7 +6,7 @@ require("../css/style.css");
 
 class Game {
   constructor() {
-    this.allCookies = 121;
+    this.allCookies = 0;
     this.renderProducersTime = 400; // ms
     this.renderBigCookieTime = 100; // ms
     this.saveDataBtn = document.getElementById("save-data");
@@ -16,6 +16,7 @@ class Game {
     this.init = this.init.bind(this);
   }
   init() {
+    // Add Save Game button onclick
     this.saveDataBtn.addEventListener("click", this.saveDataToIndexedDB.bind(this));
     // Add Render of Big Cookie by Interval every "game.renderBigCookieTime" ms
     setInterval(() => {
@@ -47,11 +48,10 @@ class Game {
         producer.render(this.getAmountOfCookies(), this.multipliers[this.multipleIndex]);
       });
     };
-    renderListOfProducers();
     // render List of All Producers every "renderProducersTime" miliseconds
     setInterval(renderListOfProducers, this.renderProducersTime);
 
-    // Render Store buttons -> Buy 1 10 100
+    // Add Store Buy buttons -> Buy 1 10 100
     document.getElementById("store1").addEventListener("click", () => {
       this.multipleIndex = 0;
       document.getElementById("store10").classList.remove("active-multiplier");
@@ -139,7 +139,7 @@ class Game {
         game: { allCookies: this.allCookies },
         listOfProducers: obj,
       });
-      this.saveDataBtn.innerHTML = "Saved";
+      this.saveDataBtn.innerHTML = "Saved!";
       // Close the db when the transaction is done
       tx.oncomplete = () => {
         db.close();
