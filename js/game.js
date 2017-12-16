@@ -107,7 +107,6 @@ class Game {
     }
   }
   saveDataToIndexedDB() {
-    console.log(this, "savadataindex");
     this.saveDataBtn.innerHTML = "Saving...";
     // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
     const indexedDB = window.indexedDB || window.mozIndexedDB ||
@@ -121,7 +120,6 @@ class Game {
       db.createObjectStore("SaveGame", { keyPath: "id" });
     };
     open.onsuccess = () => {
-      console.log(this);
       // Start a new transaction
       const db = open.result;
       const tx = db.transaction("SaveGame", "readwrite");
@@ -161,7 +159,6 @@ class Game {
       db.createObjectStore("SaveGame", { keyPath: "id" });
     };
     open.onsuccess = () => {
-      console.log(this);
       // Start a new transaction
       const db = open.result;
       const tx = db.transaction("SaveGame");
