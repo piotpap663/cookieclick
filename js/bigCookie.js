@@ -6,5 +6,10 @@ const bigCookie = {
     this.allCookiesProducePerSec.innerHTML = amount.toLocaleString();
   },
   render: (howMany) => { bigCookie.amount.innerHTML = howMany.toLocaleString(); },
+  addOnClick: (incrementCookies) => {
+    bigCookie.DOMelem.addEventListener("click", () => {
+      incrementCookies();
+    });
+  },
 };
 export default bigCookie;

@@ -9,6 +9,7 @@ module.exports = {
     },
     "rules": {
         "linebreak-style": 0,
+        "max-len": 0,
         "no-console": 0,
         "quotes": ["error", "double"],
         "indent": [
