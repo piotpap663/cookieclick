@@ -7,6 +7,7 @@ A project based on cookie clicker game http://orteil.dashnet.org/cookieclicker/
 
 [PLAY DEMO](http://cookie-clicker-sky.herokuapp.com/index.html)
 
+![Demo](cookie.gif)
 ---
 ## **Requirements**
 
